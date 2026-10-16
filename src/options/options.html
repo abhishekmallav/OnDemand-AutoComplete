@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnDemand AutoComplete - Settings & Management</title>
+  <link rel="stylesheet" href="options.css">
+  <script type="module" src="options.js"></script>
+</head>
+<body>
+  <div class="options-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </svg>
+        </div>
+        <h1>OnDemand AutoComplete</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#snippets" class="nav-item active" data-section="snippets">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Snippets
+        </a>
+        <a href="#settings" class="nav-item" data-section="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Settings
+        </a>
+        <a href="#import-export" class="nav-item" data-section="import-export">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Import / Export
+        </a>
+        <a href="#about" class="nav-item" data-section="about">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          Usage Guide
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Section: Snippets -->
+      <section id="section-snippets" class="section active">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Manage Snippets</h2>
+            <p class="section-desc">Create and edit text shortcuts that expand automatically as you type.</p>
+          </div>
+          <button id="btn-create-snippet" class="btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Snippet
+          </button>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="options-search" placeholder="Search snippets by name, trigger, or body..." class="search-input" />
+          </div>
+          <span class="trigger-badge" id="snippet-count-badge">0 total</span>
+        </div>
+
+        <div class="table-container">
+          <table class="snippets-table">
+            <thead>
+              <tr>
+                <th style="width: 140px;">Trigger</th>
+                <th style="width: 200px;">Name</th>
+                <th>Content Preview</th>
+                <th style="width: 130px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="snippets-table-body">
+              <!-- Rendered via options.js -->
+            </tbody>
+          </table>
+          <div id="snippets-empty-state" class="table-empty-state" style="display: none;">
+            <h3>No snippets found</h3>
+            <p>Click "New Snippet" above to add your first shortcut.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Settings -->
+      <section id="section-settings" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Settings</h2>
+            <p class="section-desc">Customize expansion behavior and appearance.</p>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="form-group">
+            <label class="form-label" for="setting-prefix">Trigger Prefix</label>
+            <p class="form-desc">Character that triggers shortcut expansion (e.g. <code>/</code>, <code>;</code>, <code>!</code>).</p>
+            <input type="text" id="setting-prefix" class="form-input" style="max-width: 120px;" maxlength="3" value="/" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="setting-trigger-key">Trigger Activation Key</label>
+            <p class="form-desc">Choose when the snippet expands:</p>
+            <select id="setting-trigger-key" class="form-input" style="max-width: 280px;">
+              <option value="instant">Instant (Auto-expand while typing)</option>
+              <option value="tab">Press Tab to expand</option>
+              <option value="space">Press Space to expand</option>
+              <option value="enter">Press Enter to expand</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="setting-delay">Expansion Delay (ms)</label>
+            <p class="form-desc">Wait time before replacing text (0 for instantaneous).</p>
+            <input type="number" id="setting-delay" class="form-input" style="max-width: 120px;" min="0" max="1000" step="25" value="0" />
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <div class="form-label" style="margin-bottom: 2px;">Expansion Notifications</div>
+              <p class="form-desc" style="margin-bottom: 0;">Show a subtle feedback indicator when a snippet is expanded.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-notifications" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <div class="form-label" style="margin-bottom: 2px;">Dark Mode</div>
+              <p class="form-desc" style="margin-bottom: 0;">Switch between refined light and dark themes.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-darkmode" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center;">
+          <button id="btn-save-settings" class="btn-primary">Save Settings</button>
+          <span id="settings-status" class="inline-status" role="status" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <!-- Section: Import / Export -->
+      <section id="section-import-export" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Import & Export</h2>
+            <p class="section-desc">Backup and restore your snippets locally using standard JSON format.</p>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="form-group">
+            <label class="form-label">Export Local Backup</label>
+            <p class="form-desc">Save all your snippets to a JSON file on your computer for safekeeping.</p>
+            <button id="btn-export" class="btn-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export Snippets (JSON)
+            </button>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+
+          <div class="form-group">
+            <label class="form-label">Import Snippets</label>
+            <p class="form-desc">Restore or append snippets from a JSON backup file.</p>
+            <input type="file" id="import-file-input" accept=".json" style="display: none;" />
+            <button id="btn-import" class="btn-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Import From File...
+            </button>
+            <div id="import-status" class="inline-status" role="status" aria-live="polite" style="margin-left: 0; margin-top: 10px; display: block;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: About & Guide -->
+      <section id="section-about" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Usage Guide</h2>
+            <p class="section-desc">Quick reference on how ondemand autocomplete works.</p>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="form-group">
+            <h3 style="font-size: 15px; margin-bottom: 8px;">OnDemand AutoComplete</h3>
+            <p class="form-desc">A fast, local, privacy-respecting text expansion extension. All your snippets and settings are stored locally on your machine.</p>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+
+          <div class="form-group">
+            <label class="form-label">Keyboard Shortcuts</label>
+            <div class="guide-list">
+              <div class="guide-item">
+                <kbd>Alt + Shift + . (period)</kbd>
+                <span>Open the in-page Spotlight search to insert any snippet directly into the current field.</span>
+              </div>
+              <div class="guide-item">
+                <kbd>Tab</kbd> / <kbd>Space</kbd> / <kbd>Enter</kbd>
+                <span>Trigger expansion when configured in Trigger Activation Key settings.</span>
+              </div>
+              
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+
+          <div class="form-group">
+            <label class="form-label">Supported Dynamic Placeholders</label>
+            <p class="form-desc">Insert these tags into your snippets to automatically populate live data when expanding:</p>
+            <div class="guide-list" style="margin-top: 8px;">
+              <div class="guide-item"><kbd>{{date}}</kbd> <span>Current formatted date</span></div>
+              <div class="guide-item"><kbd>{{time}}</kbd> <span>Current time</span></div>
+              <div class="guide-item"><kbd>{{datetime}}</kbd> <span>Combined date & time</span></div>
+              <div class="guide-item"><kbd>{{clipboard}}</kbd> <span>Paste current contents of clipboard</span></div>
+              <div class="guide-item"><kbd>{{cursor}}</kbd> <span>Places typing caret here after expansion</span></div>
+              <div class="guide-item"><kbd>{{day}}</kbd> <span>Current day of the week (e.g. Monday)</span></div>
+              <div class="guide-item"><kbd>{{month}}</kbd> <span>Current month (e.g. October)</span></div>
+              <div class="guide-item"><kbd>{{year}}</kbd> <span>Current four-digit year</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Snippet Form Modal -->
+  <div id="snippet-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">New Snippet</h3>
+        <button id="modal-close-btn" class="modal-close-btn" aria-label="Close dialog">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-error" class="delete-confirm-box" style="display: none; padding: 10px; margin-bottom: 14px;"></div>
+
+        <div class="form-group">
+          <label class="form-label" for="modal-snippet-name">Snippet Name</label>
+          <input type="text" id="modal-snippet-name" class="form-input" placeholder="e.g. Email Signature, Thank You Note" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="modal-snippet-trigger">Trigger Keyword</label>
+          <p class="form-desc">Prefix is added automatically (<span id="modal-trigger-prefix">/</span>). No spaces.</p>
+          <input type="text" id="modal-snippet-trigger" class="form-input" placeholder="e.g. sig, thankyou" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="modal-snippet-body">Expansion Content</label>
+          <div class="variables-guide">
+            <span class="variables-title">Click to insert dynamic variable:</span>
+            <div class="variable-chips-row">
+              <span class="variable-chip" data-var="{{date}}">+ {{date}}</span>
+              <span class="variable-chip" data-var="{{time}}">+ {{time}}</span>
+              <span class="variable-chip" data-var="{{datetime}}">+ {{datetime}}</span>
+              <span class="variable-chip" data-var="{{clipboard}}">+ {{clipboard}}</span>
+              <span class="variable-chip" data-var="{{cursor}}">+ {{cursor}}</span>
+              <span class="variable-chip" data-var="{{day}}">+ {{day}}</span>
+              <span class="variable-chip" data-var="{{month}}">+ {{month}}</span>
+              <span class="variable-chip" data-var="{{year}}">+ {{year}}</span>
+            </div>
+          </div>
+          <textarea id="modal-snippet-body" class="form-textarea" placeholder="Enter snippet body or template..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-modal-cancel" class="btn-secondary" type="button">Cancel</button>
+        <button id="btn-modal-save" class="btn-primary" type="button">Save Snippet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal (DESIGN.md specification) -->
+  <div id="delete-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-body" style="padding: 20px;">
+        <div class="delete-confirm-box" style="margin-bottom: 0;">
+          <div class="delete-confirm-title" id="delete-title">Delete Snippet</div>
+          <div class="delete-confirm-desc">Are you sure you want to delete <span id="delete-snippet-name" style="font-weight: 700;"></span>? This action cannot be undone.</div>
+          <div class="delete-confirm-actions" style="margin-top: 8px;">
+            <button id="btn-delete-cancel" class="btn-secondary" style="height: 32px; font-size: 12.5px;" type="button">Cancel</button>
+            <button id="btn-delete-confirm" class="btn-danger" type="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
