@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OnDemand AutoComplete - Settings & Management</title>
+  <title>OnDemand AutoComplete - Settings &amp; Management</title>
   <link rel="stylesheet" href="options.css">
   <script type="module" src="options.js"></script>
 </head>
@@ -13,13 +13,15 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-brand-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="4 7 4 4 20 4 20 7"></polyline>
-            <line x1="9" y1="20" x2="15" y2="20"></line>
-            <line x1="12" y1="4" x2="12" y2="20"></line>
-          </svg>
+          <img src="/icons/icon.svg" alt="" width="28" height="28">
         </div>
         <h1>OnDemand AutoComplete</h1>
+        <button id="btn-theme-toggle" class="sidebar-theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">
+          <!-- sun icon (default / light mode) -->
+          <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <!-- moon icon (dark mode) -->
+          <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
       </div>
       <nav class="sidebar-nav">
         <a href="#snippets" class="nav-item active" data-section="snippets">
@@ -56,6 +58,59 @@
           Usage Guide
         </a>
       </nav>
+
+      <!-- About Me sidebar card -->
+      <div class="sidebar-about-card" aria-label="About the developer">
+        <div class="about-card-header">
+          <div class="about-card-info">
+            <div class="about-card-bio">Made with ❤️ by</div>
+            <div class="about-card-name">Abhishek Mallav</div>
+            <div class="about-card-bio">Curious by nature, Engineer by craft</div>
+          </div>
+        </div>
+        <div class="about-card-links">
+          <!-- Email -->
+          <a href="mailto:abhimallav1439@gmail.com" class="about-link" title="Email" aria-label="Send email to Abhishek Mallav">
+            <svg class="about-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            abhimallav1439@gmail.com
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/abhishekmallav" target="_blank" rel="noopener noreferrer" class="about-link" title="LinkedIn" aria-label="Abhishek Mallav on LinkedIn">
+            <svg class="about-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            abhishekmallav
+          </a>
+          <!-- GitHub -->
+          <a href="https://github.com/abhishekmallav" target="_blank" rel="noopener noreferrer" class="about-link" title="GitHub" aria-label="Abhishek Mallav on GitHub">
+            <svg class="about-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            abhishekmallav
+          </a>
+          <!-- X / Twitter -->
+          <a href="https://x.com/abhishekmallav" target="_blank" rel="noopener noreferrer" class="about-link" title="X (Twitter)" aria-label="Abhishek Mallav on X">
+            <svg class="about-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4l16 16M20 4L4 20"></path>
+            </svg>
+            @abhishekmallav
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/abhishekmallav" target="_blank" rel="noopener noreferrer" class="about-link" title="Instagram" aria-label="Abhishek Mallav on Instagram">
+            <svg class="about-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            @abhishekmallav
+          </a>
+        </div>
+      </div>
     </aside>
 
     <!-- Main Content -->
@@ -174,7 +229,7 @@
       <section id="section-import-export" class="section">
         <div class="section-header">
           <div>
-            <h2 class="section-title">Import & Export</h2>
+            <h2 class="section-title">Import &amp; Export</h2>
             <p class="section-desc">Backup and restore your snippets locally using standard JSON format.</p>
           </div>
         </div>
@@ -193,7 +248,7 @@
             </button>
           </div>
 
-          <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+          <hr style="border: none; border-top: 1px solid var(--line); margin: 24px 0;">
 
           <div class="form-group">
             <label class="form-label">Import Snippets</label>
@@ -227,7 +282,7 @@
             <p class="form-desc">A fast, local, privacy-respecting text expansion extension. All your snippets and settings are stored locally on your machine.</p>
           </div>
 
-          <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+          <hr style="border: none; border-top: 1px solid var(--line); margin: 20px 0;">
 
           <div class="form-group">
             <label class="form-label">Keyboard Shortcuts</label>
@@ -244,7 +299,7 @@
             </div>
           </div>
 
-          <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+          <hr style="border: none; border-top: 1px solid var(--line); margin: 20px 0;">
 
           <div class="form-group">
             <label class="form-label">Supported Dynamic Placeholders</label>
@@ -252,7 +307,7 @@
             <div class="guide-list" style="margin-top: 8px;">
               <div class="guide-item"><kbd>{{date}}</kbd> <span>Current formatted date</span></div>
               <div class="guide-item"><kbd>{{time}}</kbd> <span>Current time</span></div>
-              <div class="guide-item"><kbd>{{datetime}}</kbd> <span>Combined date & time</span></div>
+              <div class="guide-item"><kbd>{{datetime}}</kbd> <span>Combined date &amp; time</span></div>
               <div class="guide-item"><kbd>{{clipboard}}</kbd> <span>Paste current contents of clipboard</span></div>
               <div class="guide-item"><kbd>{{cursor}}</kbd> <span>Places typing caret here after expansion</span></div>
               <div class="guide-item"><kbd>{{day}}</kbd> <span>Current day of the week (e.g. Monday)</span></div>
@@ -311,7 +366,7 @@
     </div>
   </div>
 
-  <!-- Delete Confirmation Modal (DESIGN.md specification) -->
+  <!-- Delete Confirmation Modal -->
   <div id="delete-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="delete-title">
     <div class="modal-card" style="max-width: 440px;">
       <div class="modal-body" style="padding: 20px;">

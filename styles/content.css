@@ -1,27 +1,116 @@
-:root {
-  --tep-canvas: #F4F7FB;
-  --tep-surface: #FFFFFF;
-  --tep-muted-surface: #EEF3F8;
-  --tep-text: #14243A;
-  --tep-muted-text: #5D6B7D;
-  --tep-border: #DBE3ED;
-  --tep-primary: #2563EB;
-  --tep-primary-hover: #1D4ED8;
-  --tep-primary-subtle: #EFF6FF;
-  --tep-success: #147D54;
-  --tep-success-bg: #EDF9F2;
+/* ==========================================================================
+   OnDemand AutoComplete - In-Page Overlay Picker & Content Script Styles
+   Faithfully matching the popup & options glassmorphic design system
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Theme Variables (Scoped to .tep-overlay)
+   -------------------------------------------------------------------------- */
+
+.tep-overlay,
+.tep-overlay[data-theme="light"] {
+  --bg:   #f8f9fa;
+  --ink:  #212529;
+  --mut:  #6c757d;
+  --line: rgba(33, 37, 41, 0.10);
+
+  --btn:       #343a40;
+  --btn-hover: #212529;
+
+  --gl:   rgba(255, 255, 255, 0.72);
+  --gb:   rgba(222, 226, 230, 0.70);
+  --sf:   rgba(248, 249, 250, 0.65);
+
+  --error:        #dc3545;
+  --error-bg:     rgba(220, 53, 69, 0.08);
+  --error-border: rgba(220, 53, 69, 0.22);
+  --success:      #495057;
+  --success-bg:   rgba(73, 80, 87, 0.08);
+
+  --sh:    0 4px 24px rgba(33, 37, 41, 0.08);
+  --sh-sm: 0 1px 6px  rgba(33, 37, 41, 0.05);
+  --sh-lg: 0 16px 48px rgba(33, 37, 41, 0.16);
+
+  --r-sm:   6px;
+  --r-md:   8px;
+  --r-lg:   12px;
+  --r-xl:   16px;
+  --r-pill: 999px;
+
+  --backdrop: rgba(15, 23, 42, 0.40);
+  --card-active-ring: rgba(108, 117, 125, 0.25);
+  --pill-bg: rgba(73, 80, 87, 0.10);
+  --pill-border: rgba(73, 80, 87, 0.18);
 }
 
-/* Subtle expansion pulse animation */
+.tep-overlay[data-theme="dark"] {
+  --bg:   #212529;
+  --ink:  #f8f9fa;
+  --mut:  #adb5bd;
+  --line: rgba(248, 249, 250, 0.10);
+
+  --btn:       #495057;
+  --btn-hover: #6c757d;
+
+  --gl:   rgba(33, 37, 41, 0.85);
+  --gb:   rgba(255, 255, 255, 0.10);
+  --sf:   rgba(255, 255, 255, 0.05);
+
+  --error:        #f08080;
+  --error-bg:     rgba(240, 128, 128, 0.12);
+  --error-border: rgba(240, 128, 128, 0.28);
+  --success:      #ced4da;
+  --success-bg:   rgba(206, 212, 218, 0.08);
+
+  --sh:    0 4px 24px rgba(0, 0, 0, 0.40);
+  --sh-sm: 0 1px 6px  rgba(0, 0, 0, 0.25);
+  --sh-lg: 0 20px 52px rgba(0, 0, 0, 0.60);
+
+  --backdrop: rgba(0, 0, 0, 0.65);
+  --card-active-ring: rgba(255, 255, 255, 0.15);
+  --pill-bg: rgba(255, 255, 255, 0.10);
+  --pill-border: rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tep-overlay:not([data-theme="light"]) {
+    --bg:   #212529;
+    --ink:  #f8f9fa;
+    --mut:  #adb5bd;
+    --line: rgba(248, 249, 250, 0.10);
+    --btn:       #495057;
+    --btn-hover: #6c757d;
+    --gl:   rgba(33, 37, 41, 0.85);
+    --gb:   rgba(255, 255, 255, 0.10);
+    --sf:   rgba(255, 255, 255, 0.05);
+    --error:        #f08080;
+    --error-bg:     rgba(240, 128, 128, 0.12);
+    --error-border: rgba(240, 128, 128, 0.28);
+    --success:      #ced4da;
+    --success-bg:   rgba(206, 212, 218, 0.08);
+    --sh:    0 4px 24px rgba(0, 0, 0, 0.40);
+    --sh-sm: 0 1px 6px  rgba(0, 0, 0, 0.25);
+    --sh-lg: 0 20px 52px rgba(0, 0, 0, 0.60);
+    --backdrop: rgba(0, 0, 0, 0.65);
+    --card-active-ring: rgba(255, 255, 255, 0.15);
+    --pill-bg: rgba(255, 255, 255, 0.10);
+    --pill-border: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Subtle Expansion Pulse Animation
+   -------------------------------------------------------------------------- */
+
 @keyframes tep-expand-glow {
   0% {
-    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
+    box-shadow: 0 0 0 0 rgba(108, 117, 125, 0.45);
   }
   30% {
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 0 0 4px rgba(108, 117, 125, 0.20);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    box-shadow: 0 0 0 0 rgba(108, 117, 125, 0);
   }
 }
 
@@ -30,20 +119,26 @@
   transition: box-shadow 0.2s ease !important;
 }
 
-/* In-page Picker Overlay */
+/* --------------------------------------------------------------------------
+   In-Page Overlay Modal Backdrop
+   -------------------------------------------------------------------------- */
+
 .tep-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(2px);
-  z-index: 2147483646;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: tep-fade-in 0.15s ease;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: var(--backdrop) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  z-index: 2147483646 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  animation: tep-fade-in 0.15s ease-out !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
 }
 
 @keyframes tep-fade-in {
@@ -51,162 +146,415 @@
   to { opacity: 1; }
 }
 
+/* Isolation & typography reset inside overlay */
+.tep-overlay *,
+.tep-overlay *::before,
+.tep-overlay *::after {
+  box-sizing: border-box !important;
+  font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* --------------------------------------------------------------------------
+   Picker Dialog (Matching Popup Container)
+   -------------------------------------------------------------------------- */
+
 .tep-picker {
-  background: #FFFFFF;
-  border-radius: 12px;
-  border: 1px solid var(--tep-border);
-  box-shadow: 0 16px 40px rgba(20, 36, 58, 0.18);
-  width: 440px;
-  max-width: 90vw;
-  max-height: 480px;
-  overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  z-index: 2147483647;
-  display: flex;
-  flex-direction: column;
-  animation: tep-scale-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--bg) !important;
+  border-radius: var(--r-xl) !important;
+  border: 1px solid var(--gb) !important;
+  box-shadow: var(--sh-lg) !important;
+  width: 420px !important;
+  max-width: 94vw !important;
+  height: 480px !important;
+  max-height: 85vh !important;
+  overflow: hidden !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  animation: tep-scale-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  color: var(--ink) !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  position: relative !important;
 }
 
 @keyframes tep-scale-in {
-  from { opacity: 0; transform: scale(0.96) translateY(-6px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
-.tep-picker-header {
-  padding: 12px 14px;
-  background: #FFFFFF;
-  border-bottom: 1px solid var(--tep-border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* --------------------------------------------------------------------------
+   Search Bar (Identical to Popup Search)
+   -------------------------------------------------------------------------- */
+
+.tep-picker .search-bar-wrap {
+  padding: 12px 14px 8px 14px !important;
+  flex-shrink: 0 !important;
 }
 
-.tep-picker-search {
-  flex: 1;
-  height: 38px;
-  padding: 0 12px;
-  border: 1px solid var(--tep-border);
-  border-radius: 8px;
-  font-size: 13.5px;
-  color: var(--tep-text);
-  background: #FFFFFF;
-  outline: none;
-  transition: all 0.15s ease;
+.tep-picker .search-container {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
 }
 
-.tep-picker-search:focus {
-  border-color: var(--tep-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+.tep-picker .search-icon {
+  position: absolute !important;
+  left: 11px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 14px !important;
+  height: 14px !important;
+  color: var(--mut) !important;
+  display: block !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
 }
 
-.tep-picker-list {
-  max-height: 320px;
-  overflow-y: auto;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.tep-picker .search-input {
+  width: 100% !important;
+  height: 36px !important;
+  padding: 0 28px 0 34px !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+  color: var(--ink) !important;
+  background: var(--gl) !important;
+  border: 1px solid var(--gb) !important;
+  border-radius: var(--r-md) !important;
+  outline: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  line-height: 36px !important;
 }
 
-.tep-picker-item {
-  padding: 9px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.12s ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid transparent;
+.tep-picker .search-input::placeholder {
+  color: var(--mut) !important;
+  opacity: 0.7 !important;
 }
 
-.tep-picker-item:hover,
-.tep-picker-item.active {
-  background: var(--tep-muted-surface);
-  border-color: #DBE3ED;
+.tep-picker .search-input:focus {
+  border-color: var(--mut) !important;
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.14) !important;
 }
 
-.tep-picker-item-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
+.tep-picker .clear-search-btn {
+  position: absolute !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: none !important;
+  border: none !important;
+  color: var(--mut) !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 2px 4px !important;
+  border-radius: var(--r-sm) !important;
+  transition: color 0.12s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-.tep-picker-trigger {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--tep-primary);
-  background: var(--tep-primary-subtle);
-  padding: 2px 7px;
-  border-radius: 5px;
-  border: 1px solid rgba(37, 99, 235, 0.2);
-  white-space: nowrap;
+.tep-picker .clear-search-btn:hover {
+  color: var(--ink) !important;
 }
 
-.tep-picker-name {
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--tep-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* --------------------------------------------------------------------------
+   Snippet List Container & Glass Scrollbar
+   -------------------------------------------------------------------------- */
+
+.tep-picker .snippet-list-container {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 4px 14px 10px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
 }
 
-.tep-picker-preview {
-  font-size: 12px;
-  color: var(--tep-muted-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 140px;
+.tep-picker .snippet-list-container::-webkit-scrollbar {
+  width: 8px !important;
 }
 
-.tep-picker-footer {
-  padding: 8px 14px;
-  background: var(--tep-canvas);
-  border-top: 1px solid var(--tep-border);
-  font-size: 11.5px;
-  color: var(--tep-muted-text);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.tep-picker .snippet-list-container::-webkit-scrollbar-track {
+  background: transparent !important;
 }
 
-.tep-picker-footer kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 10.5px;
-  background: #FFFFFF;
-  border: 1px solid var(--tep-border);
-  padding: 1px 4px;
-  border-radius: 3px;
-  color: var(--tep-text);
+.tep-picker .snippet-list-container::-webkit-scrollbar-thumb {
+  background-color: var(--gb) !important;
+  border-radius: var(--r-sm) !important;
 }
 
-/* Subtle Expansion Notification Toast */
+.tep-picker .snippet-list-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mut) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Snippet Card (Identical to Popup Snippet Card)
+   -------------------------------------------------------------------------- */
+
+.tep-picker .snippet-card {
+  background: var(--gl) !important;
+  border: 1px solid var(--gb) !important;
+  border-radius: var(--r-lg) !important;
+  padding: 10px 13px !important;
+  cursor: pointer !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  user-select: none !important;
+  outline: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: var(--sh-sm) !important;
+  text-align: left !important;
+}
+
+.tep-picker .snippet-card:hover {
+  background: var(--sf) !important;
+  border-color: var(--mut) !important;
+  box-shadow: var(--sh-sm) !important;
+}
+
+.tep-picker .snippet-card.active {
+  background: var(--sf) !important;
+  border-color: var(--mut) !important;
+  box-shadow: 0 0 0 1.5px var(--mut), var(--sh-sm) !important;
+}
+
+.tep-picker .snippet-header-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+}
+
+.tep-picker .snippet-meta-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+.tep-picker .trigger-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  padding: 2px 7px !important;
+  background: var(--pill-bg) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--pill-border) !important;
+  border-radius: var(--r-sm) !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  line-height: 1.25 !important;
+}
+
+.tep-picker .snippet-title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.tep-picker .snippet-preview {
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  color: var(--mut) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Action hint badge inside card */
+.tep-picker .snippet-actions-bar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  flex-shrink: 0 !important;
+}
+
+.tep-picker .action-btn {
+  font-family: inherit !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  padding: 2px 8px !important;
+  border-radius: var(--r-sm) !important;
+  background: var(--gl) !important;
+  border: 1px solid var(--gb) !important;
+  color: var(--mut) !important;
+  cursor: pointer !important;
+  line-height: 1.3 !important;
+  transition: all 0.12s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.tep-picker .action-btn kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 9.5px !important;
+  padding: 0 3px !important;
+  line-height: 1.2 !important;
+  border-radius: 3px !important;
+  border: 1px solid var(--gb) !important;
+  background: var(--gl) !important;
+  color: var(--ink) !important;
+}
+
+.tep-picker .snippet-card.active .action-btn,
+.tep-picker .snippet-card:hover .action-btn {
+  background: var(--sf) !important;
+  color: var(--ink) !important;
+  border-color: var(--mut) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Empty State
+   -------------------------------------------------------------------------- */
+
+.tep-picker .empty-state {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 40px 16px !important;
+  text-align: center !important;
+  gap: 8px !important;
+  flex: 1 !important;
+}
+
+.tep-picker .empty-state h3 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  margin: 0 !important;
+}
+
+.tep-picker .empty-state p {
+  font-size: 12.5px !important;
+  color: var(--mut) !important;
+  max-width: 240px !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Footer (Matching Popup Footer)
+   -------------------------------------------------------------------------- */
+
+.tep-picker .popup-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px 14px !important;
+  border-top: 1px solid var(--line) !important;
+  background: var(--bg) !important;
+  font-size: 11.5px !important;
+  color: var(--mut) !important;
+  flex-shrink: 0 !important;
+}
+
+.tep-picker .footer-count {
+  color: var(--mut) !important;
+  font-weight: 500 !important;
+}
+
+.tep-picker .footer-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.tep-picker .footer-prefix-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  color: var(--mut) !important;
+  font-size: 11.5px !important;
+}
+
+.tep-picker .footer-prefix-label {
+  color: var(--mut) !important;
+}
+
+.tep-picker .prefix-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 1px 7px !important;
+  background: var(--pill-bg) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--pill-border) !important;
+  border-radius: var(--r-pill) !important;
+  line-height: 1.3 !important;
+  display: inline-block !important;
+}
+
+.tep-picker .footer-hints {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 11px !important;
+  color: var(--mut) !important;
+}
+
+.tep-picker .footer-hints kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 10px !important;
+  background: var(--gl) !important;
+  border: 1px solid var(--gb) !important;
+  padding: 1px 5px !important;
+  border-radius: var(--r-sm) !important;
+  color: var(--ink) !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+}
+
+/* --------------------------------------------------------------------------
+   Subtle Expansion Feedback Toast (Matching Theme)
+   -------------------------------------------------------------------------- */
+
 .tep-expansion-toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: #14243A;
-  color: #FFFFFF;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  z-index: 2147483647;
-  opacity: 0;
-  transform: translateY(10px) scale(0.96);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  box-shadow: 0 4px 16px rgba(20, 36, 58, 0.22);
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  background: #212529 !important;
+  color: #f8f9fa !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  z-index: 2147483647 !important;
+  opacity: 0 !important;
+  transform: translateY(10px) scale(0.96) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+  pointer-events: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 
 .tep-expansion-toast.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
 }

@@ -39,6 +39,7 @@ let snippetList = [];
 let triggerPrefix = "/";
 let triggerMode = "instant"; // "instant" | "tab" | "space" | "enter"
 let showNotifications = true;
+let currentTheme = "light";
 let lastActiveElement = null;
 
 async function init() {
@@ -63,6 +64,7 @@ async function loadData() {
     triggerMode =
       settings && settings.triggerKey ? settings.triggerKey : "instant";
     showNotifications = settings && settings.notifications !== false;
+    currentTheme = settings && settings.darkMode ? "dark" : "light";
 
     snippetMap.clear();
     snippetList
@@ -76,6 +78,15 @@ async function loadData() {
             : s.trigger;
         snippetMap.set(key, s);
       });
+
+    // If overlay picker is currently mounted, update its theme and prefix immediately
+    if (activePickerOverlay) {
+      activePickerOverlay.setAttribute("data-theme", currentTheme);
+      const prefixEl = activePickerOverlay.querySelector("#tep-status-prefix");
+      if (prefixEl) {
+        prefixEl.textContent = triggerPrefix || "/";
+      }
+    }
   } catch (err) {
     console.error("[OnDemand AutoComplete] Failed to load data:", err);
   }
@@ -83,8 +94,21 @@ async function loadData() {
 
 function setupStorageListener() {
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === "local" && (changes.tep_snippets || changes.tep_settings)) {
-      loadData();
+    if (area === "local") {
+      if (changes.tep_snippets || changes.tep_settings) {
+        loadData();
+      }
+      if (changes.tep_settings && changes.tep_settings.newValue) {
+        const newSettings = changes.tep_settings.newValue;
+        currentTheme = newSettings.darkMode ? "dark" : "light";
+        if (activePickerOverlay) {
+          activePickerOverlay.setAttribute("data-theme", currentTheme);
+          const prefixEl = activePickerOverlay.querySelector("#tep-status-prefix");
+          if (prefixEl && newSettings.triggerPrefix) {
+            prefixEl.textContent = newSettings.triggerPrefix;
+          }
+        }
+      }
     }
   });
 }
@@ -365,60 +389,126 @@ function openSnippetPickerModal(targetEl) {
 
   const overlay = document.createElement("div");
   overlay.className = "tep-overlay";
+  overlay.setAttribute("data-theme", currentTheme);
 
   const picker = document.createElement("div");
-  picker.className = "tep-picker";
+  picker.className = "tep-picker popup-container";
 
   picker.innerHTML = `
-    <div class="tep-picker-header">
-      <input type="text" class="tep-picker-search" placeholder="Type to search snippets..." autocomplete="off" spellcheck="false" />
+    <!-- Search Bar -->
+    <div class="search-bar-wrap">
+      <div class="search-container">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input
+          type="text"
+          id="tep-search-input"
+          class="search-input"
+          placeholder="Search snippets or triggers..."
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="tep-clear-search" class="clear-search-btn" title="Clear search" aria-label="Clear search" style="display: none;">&times;</button>
+      </div>
     </div>
-    <div class="tep-picker-list"></div>
-    <div class="tep-picker-footer">
-      <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate, <kbd>Enter</kbd> to insert</span>
-      <span><kbd>Esc</kbd> to close</span>
-    </div>
+
+    <!-- Snippet List Container -->
+    <div id="tep-snippet-list" class="snippet-list-container" role="feed" aria-busy="false"></div>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <span class="footer-count" id="tep-snippet-count">0 snippets</span>
+      <div class="footer-right">
+        <div class="footer-prefix-wrap">
+          <span class="footer-prefix-label">Prefix</span>
+          <span class="prefix-pill" id="tep-status-prefix">${escapeHtml(triggerPrefix || "/")}</span>
+        </div>
+        <div class="footer-hints">
+          <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+          <span><kbd>↵</kbd> insert</span>
+          <span><kbd>esc</kbd> close</span>
+        </div>
+      </div>
+    </footer>
   `;
 
   overlay.appendChild(picker);
   document.body.appendChild(overlay);
   activePickerOverlay = overlay;
 
-  const searchInput = picker.querySelector(".tep-picker-search");
-  const listEl = picker.querySelector(".tep-picker-list");
+  const searchInput = picker.querySelector("#tep-search-input");
+  const clearSearchBtn = picker.querySelector("#tep-clear-search");
+  const listEl = picker.querySelector("#tep-snippet-list");
+  const countEl = picker.querySelector("#tep-snippet-count");
   let selectedIndex = 0;
   let filteredItems = [...snippetList];
+
+  function updateCount(count) {
+    if (countEl) {
+      countEl.textContent = `${count} snippet${count !== 1 ? "s" : ""}`;
+    }
+  }
 
   function renderList() {
     listEl.innerHTML = "";
     if (filteredItems.length === 0) {
-      listEl.innerHTML = `<div style="padding: 20px; text-align: center; color: #5D6B7D; font-size: 13px;">No matching snippets</div>`;
+      listEl.innerHTML = `
+        <div class="empty-state">
+          <h3>No matching snippets</h3>
+          <p>Try another keyword or shortcut search.</p>
+        </div>
+      `;
+      updateCount(0);
       return;
     }
+
+    const prefix = triggerPrefix || "/";
     filteredItems.forEach((item, idx) => {
-      const itemEl = document.createElement("div");
-      itemEl.className = `tep-picker-item ${idx === selectedIndex ? "active" : ""}`;
-      const prefix = triggerPrefix || "/";
+      const card = document.createElement("div");
+      card.className = `snippet-card ${idx === selectedIndex ? "active" : ""}`;
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", `Insert ${item.name || item.trigger}`);
+
       const displayTrigger = item.trigger.startsWith(prefix)
         ? item.trigger
         : `${prefix}${item.trigger}`;
       const preview = String(item.body || "")
         .replace(/\s+/g, " ")
-        .substring(0, 45);
+        .substring(0, 65);
 
-      itemEl.innerHTML = `
-        <div class="tep-picker-item-left">
-          <span class="tep-picker-trigger">${escapeHtml(displayTrigger)}</span>
-          <span class="tep-picker-name">${escapeHtml(item.name || "Untitled")}</span>
+      card.innerHTML = `
+        <div class="snippet-header-row">
+          <div class="snippet-meta-group">
+            <span class="trigger-pill">${escapeHtml(displayTrigger)}</span>
+            <span class="snippet-title">${escapeHtml(item.name || "Untitled")}</span>
+          </div>
+          <div class="snippet-actions-bar">
+            <span class="action-btn" title="Press Enter or Click to insert">Insert <kbd>↵</kbd></span>
+          </div>
         </div>
-        <span class="tep-picker-preview">${escapeHtml(preview)}</span>
+        <div class="snippet-preview">${escapeHtml(preview || "Empty snippet")}</div>
       `;
 
-      itemEl.addEventListener("click", () => {
+      card.addEventListener("click", () => {
         selectAndInsert(item);
       });
-      listEl.appendChild(itemEl);
+
+      card.addEventListener("mouseenter", () => {
+        selectedIndex = idx;
+        const currentActive = listEl.querySelector(".snippet-card.active");
+        if (currentActive && currentActive !== card) {
+          currentActive.classList.remove("active");
+        }
+        card.classList.add("active");
+      });
+
+      listEl.appendChild(card);
     });
+
+    updateCount(filteredItems.length);
   }
 
   function selectAndInsert(snippet) {
@@ -426,6 +516,13 @@ function openSnippetPickerModal(targetEl) {
     if (activeTarget && isEditable(activeTarget)) {
       activeTarget.focus();
       insertDirectSnippet(activeTarget, snippet);
+    } else {
+      // If no text control is active, copy to clipboard for convenience
+      processSnippetText(snippet.body || "").then(({ text }) => {
+        navigator.clipboard.writeText(text).then(() => {
+          showMicroToast(`✓ Copied ${snippet.trigger} to clipboard`);
+        }).catch(() => {});
+      });
     }
   }
 
@@ -438,7 +535,7 @@ function openSnippetPickerModal(targetEl) {
       const newPos = caret >= 0 ? start + caret : start + text.length;
       target.selectionStart = target.selectionEnd = newPos;
       target.dispatchEvent(new InputEvent("input", { bubbles: true }));
-    } else {
+    } else if (target && target.isContentEditable) {
       document.execCommand("insertText", false, text);
     }
     triggerExpansionAnimation(target, snippet.trigger);
@@ -450,8 +547,11 @@ function openSnippetPickerModal(targetEl) {
     } catch {}
   }
 
-  searchInput.addEventListener("input", () => {
-    const q = searchInput.value.toLowerCase().trim();
+  function applyFilter(query) {
+    const q = (query || "").toLowerCase().trim();
+    if (clearSearchBtn) {
+      clearSearchBtn.style.display = q ? "flex" : "none";
+    }
     filteredItems = snippetList.filter(
       (s) =>
         (s.name && s.name.toLowerCase().includes(q)) ||
@@ -460,7 +560,19 @@ function openSnippetPickerModal(targetEl) {
     );
     selectedIndex = 0;
     renderList();
+  }
+
+  searchInput.addEventListener("input", () => {
+    applyFilter(searchInput.value);
   });
+
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      applyFilter("");
+      searchInput.focus();
+    });
+  }
 
   searchInput.addEventListener("keydown", (e) => {
     if (e.key === "ArrowDown") {
@@ -496,11 +608,11 @@ function openSnippetPickerModal(targetEl) {
   });
 
   renderList();
-  searchInput.focus();
+  setTimeout(() => searchInput.focus(), 30);
 }
 
 function ensureVisible(listEl, index) {
-  const items = listEl.querySelectorAll(".tep-picker-item");
+  const items = listEl.querySelectorAll(".snippet-card");
   if (items[index]) {
     items[index].scrollIntoView({ block: "nearest" });
   }

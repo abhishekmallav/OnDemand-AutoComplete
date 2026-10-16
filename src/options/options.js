@@ -1,4 +1,4 @@
-
+﻿
 import { S as Storage } from '../../assets/storage.js';
 import { e as escapeHtml, g as generateUuid } from '../../assets/utils.js';
 
@@ -52,6 +52,11 @@ const btnImportEl = document.getElementById('btn-import');
 const importFileInputEl = document.getElementById('import-file-input');
 const importStatusEl = document.getElementById('import-status');
 
+// Theme toggle elements (sidebar)
+const btnThemeToggleEl = document.getElementById('btn-theme-toggle');
+const themeIconSunEl = document.getElementById('theme-icon-sun');
+const themeIconMoonEl = document.getElementById('theme-icon-moon');
+
 async function init() {
   await loadSettings();
   await loadSnippets();
@@ -88,8 +93,13 @@ function applyTheme(isDark) {
   if (isDark) {
     document.documentElement.setAttribute('data-theme', 'dark');
   } else {
-    document.documentElement.removeAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', 'light');
   }
+  // Swap sun / moon SVG icons
+  if (themeIconSunEl) themeIconSunEl.style.display = isDark ? 'none' : '';
+  if (themeIconMoonEl) themeIconMoonEl.style.display = isDark ? '' : 'none';
+  // Keep the settings checkbox in sync
+  if (settingDarkModeEl) settingDarkModeEl.checked = isDark;
 }
 
 // ----------------------------------------------------------------------------
@@ -368,7 +378,7 @@ async function exportSnippets() {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = `OnDemand-AutoComplete${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `OnDemand-AutoComplete-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -486,7 +496,24 @@ function setupEventListeners() {
   btnSaveSettingsEl.addEventListener('click', saveSettings);
   settingDarkModeEl.addEventListener('change', () => {
     applyTheme(settingDarkModeEl.checked);
+    // Persist immediately on toggle
+    Storage.getSettings().then(s => Storage.saveSettings({ ...s, darkMode: settingDarkModeEl.checked })).catch(() => {});
   });
+
+  // Sidebar theme toggle button
+  if (btnThemeToggleEl) {
+    btnThemeToggleEl.addEventListener('click', async () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newDark = !isDark;
+      applyTheme(newDark);
+      currentSettings = { ...currentSettings, darkMode: newDark };
+      try {
+        await Storage.saveSettings(currentSettings);
+      } catch (e) {
+        console.warn('Could not persist theme:', e);
+      }
+    });
+  }
 
   // Import / Export
   btnExportEl.addEventListener('click', exportSnippets);

@@ -14,11 +14,42 @@ const statusPrefixEl = document.getElementById('status-prefix');
 const toastEl = document.getElementById('toast-notice');
 const btnNewSnippet = document.getElementById('btn-new-snippet');
 const btnSettings = document.getElementById('btn-settings');
+const btnThemeToggle = document.getElementById('btn-theme-toggle');
+const themeIconSunEl = document.getElementById('theme-icon-sun');
+const themeIconMoonEl = document.getElementById('theme-icon-moon');
 
 async function init() {
   await loadSettings();
   await loadSnippets();
   setupEventListeners();
+  setupThemeToggle();
+}
+
+function updateThemeIcon(isDark) {
+  if (themeIconSunEl) themeIconSunEl.style.display = isDark ? 'none' : '';
+  if (themeIconMoonEl) themeIconMoonEl.style.display = isDark ? '' : 'none';
+}
+
+function setupThemeToggle() {
+  if (!btnThemeToggle) return;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+    (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  updateThemeIcon(isDark);
+
+  btnThemeToggle.addEventListener('click', async () => {
+    const currentlyDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+      (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const newDark = !currentlyDark;
+    document.documentElement.setAttribute('data-theme', newDark ? 'dark' : 'light');
+    updateThemeIcon(newDark);
+    // Persist to settings storage
+    try {
+      const settings = await Storage.getSettings();
+      await Storage.saveSettings({ ...settings, darkMode: newDark });
+    } catch (e) {
+      try { localStorage.setItem('te-theme', newDark ? 'dark' : 'light'); } catch (_) {}
+    }
+  });
 }
 
 async function loadSettings() {
@@ -27,11 +58,12 @@ async function loadSettings() {
     if (activeSettings.darkMode) {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
     }
+    updateThemeIcon(!!activeSettings.darkMode);
     const prefix = activeSettings.triggerPrefix || '/';
     if (statusPrefixEl) {
-      statusPrefixEl.textContent = `Prefix: ${prefix}`;
+      statusPrefixEl.textContent = prefix;
     }
   } catch (err) {
     console.error('Failed to load settings:', err);
