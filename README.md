@@ -5,18 +5,13 @@
 > **Type less, do more with OnDemand AutoComplete for professionals.**  
 > Expand custom text snippets, templates, and dynamic placeholders on any website instantly.
 
-[![Chrome Web Store](https://shieldcn.dev/badge/Chrome%20Web%20Store-Available-blue?logo=googlechrome&logoColor=white)](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID)
-[![Version](https://shieldcn.dev/badge/Version-1.1-brightgreen)](manifest.json)
-[![Manifest Version](https://shieldcn.dev/badge/Manifest-V3-orange)](manifest.json)
-[![License](https://shieldcn.dev/badge/License-MIT-blue)](LICENSE)
-[![PRs Welcome](https://shieldcn.dev/badge/PRs-welcome-green)](#-developer-workflow--contributing)
-
+![GitHub Release](https://shieldcn.dev/github/release/abhishekmallav/OnDemand-AutoComplete.svg?variant=outline&size=default)
+![Manifest Version](https://shieldcn.dev/badge/Manifest%20V3-orange.svg?variant=outline&theme=red&logoColor=ef4444&size=default)
+![License MIT](https://shieldcn.dev/badge/license-MIT-green.svg?variant=outline&size=default)
+![PRs Welcome](https://shieldcn.dev/badge/PRs-welcome-blue.svg?variant=outline&size=default)
 <br/>
 
-<a href="https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID" title="Download on Chrome Web Store">
-  <img src="https://raw.githubusercontent.com/abhishekmallav/OnDemand-AutoComplete/main/assets/chrome-web-store-badge.png" alt="Available in the Chrome Web Store" width="240" onerror="this.onerror=null;this.src='https://storage.googleapis.com/web-dev-uploads/image/W3z1fSfqTTScDgfdRiYj1DC6Gt2/bvdqWqG5b86rDqjXFm2R.png';" />
-</a>
-
+[![Chrome Web Store](https://shieldcn.dev/badge/Chrome%20Web%20Store-Available-blue?logo=googlechrome&logoColor=white&size=default)](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID)
 <br/>
 <sub>Click the badge above to install directly from the <b>Chrome Web Store</b>.</sub>
 
@@ -39,12 +34,12 @@
 
 ## ✨ Key Features
 
-- ⚡ **Instant Text Expansion**: Type your prefix (e.g., `/`) followed by your trigger keyword to expand any snippet on the fly.
-- 🎯 **In-Page Snippet Picker**: Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>.</kbd> on any web page to search and insert snippets without switching tabs.
-- 🪄 **Dynamic Placeholders**: Automatically inject live dates, times, clipboard contents, and smart cursor placement.
-- 🎨 **Modern Sleek Interface**: Clean popup UI and options manager with full **Light / Dark Mode** support.
-- 💾 **Local & Private**: All data is securely stored in your browser using Chrome Storage API — no telemetry or third-party servers.
-- 🔄 **Import & Export**: Backup and restore all your snippets seamlessly via JSON.
+- **Instant Text Expansion**: Type your prefix (e.g., `/`) followed by your trigger keyword to expand any snippet on the fly.
+- **In-Page Snippet Picker**: Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>.</kbd> on any web page to search and insert snippets without switching tabs.
+- **Dynamic Placeholders**: Automatically inject live dates, times, clipboard contents, and smart cursor placement.
+- **Modern Sleek Interface**: Clean popup UI and options manager with full **Light / Dark Mode** support.
+- **Local & Private**: All data is securely stored in your browser using Chrome Storage API — no telemetry or third-party servers.
+- **Import & Export**: Backup and restore all your snippets seamlessly via JSON.
 
 ---
 
@@ -52,7 +47,8 @@
 
 The easiest way to get started is by downloading **OnDemand AutoComplete** directly from the official store:
 
-[![Available in the Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/W3z1fSfqTTScDgfdRiYj1DC6Gt2/bvdqWqG5b86rDqjXFm2R.png)](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID)
+[![Get the Chrome Extension](https://developer.chrome.com/static/docs/webstore/branding/image/iNEddTyWiMfLSwFD6qGq.png)](https://chromewebstore.google.com/detail/prompt-confirm/ppbmlophbfhjlhmegeoklkdpenedahfg)
+
 
 1. Head over to the **[Chrome Web Store Page](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID)**.
 2. Click **Add to Chrome**.
@@ -190,12 +186,13 @@ ondemand-autocomplete/
 
 Built with ❤️ by **Abhishek Mallav**. Feel free to connect and follow along for updates:
 
-[![GitHub](https://shieldcn.dev/badge/GitHub-abhishekmallav-black?logo=github&logoColor=white)](https://github.com/abhishekmallav)
-[![LinkedIn](https://shieldcn.dev/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white)](https://linkedin.com/in/YOUR_LINKEDIN_USERNAME)
-[![X (Twitter)](https://shieldcn.dev/badge/X%20(Twitter)-Follow-000000?logo=x&logoColor=white)](https://twitter.com/YOUR_TWITTER_HANDLE)
-[![Portfolio / Website](https://shieldcn.dev/badge/Portfolio-Website-blueviolet?logo=googlechrome&logoColor=white)](https://YOUR_WEBSITE_OR_PORTFOLIO.com)
-[![Email](https://shieldcn.dev/badge/Email-abhimallav1439%40gmail.com-D14836?logo=gmail&logoColor=white)](mailto:abhimallav1439@gmail.com)
+[![GitHub](https://shieldcn.dev/badge/GitHub-abhishekmallav-black?logo=github&logoColor=white&size=default)](https://github.com/abhishekmallav)
+[![Portfolio](https://shieldcn.dev/badge/Portfolio-5B5B5B.svg?logo=safari&logoColor=white&size=default)](https://abhishekmallav.github.io/portfolio)
+[![Email](https://shieldcn.dev/badge/Email-abhimallav1439%40gmail.com-D14836?logo=gmail&logoColor=white&size=default)](mailto:abhimallav1439@gmail.com)
 
+[![X (Twitter)](https://shieldcn.dev/badge/X%20(Twitter)-Follow-000000?logo=x&logoColor=white&size=default)](https://twitter.com/abhishekmallav)
+[![LinkedIn](https://shieldcn.dev/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white&size=default)](https://linkedin.com/in/abhishekmallav)
+[![Instagram](https://shieldcn.dev/badge/Instagram-E4405F.svg?logo=instagram&logoColor=white&size=default)](https://instagram.com/abhishekmallav)
 ---
 
 ## 📜 License
