@@ -1,4 +1,7 @@
-# ⚡ OnDemand AutoComplete
+<h1>
+  <img src="icons/icon.svg" alt="OnDemand AutoComplete logo" width="32" align="center" margin="4px" />
+  OnDemand AutoComplete
+</h1>
 
 <div align="center">
 
@@ -20,14 +23,20 @@
 ---
 
 ## 📖 Table of Contents
+- [📖 Table of Contents](#-table-of-contents)
 - [✨ Key Features](#-key-features)
 - [🚀 Quick Start (Chrome Web Store)](#-quick-start-chrome-web-store)
-- [🛠️ Local Installation & Development Setup](#️-local-installation--development-setup)
-- [💻 Developer Workflow & Contributing](#-developer-workflow--contributing)
-- [⌨️ Keyboard Shortcuts & Usage Guide](#️-keyboard-shortcuts--usage-guide)
+- [🛠️ Local Installation \& Development Setup](#️-local-installation--development-setup)
+  - [Step 1: Download or Clone the Repository](#step-1-download-or-clone-the-repository)
+  - [Step 2: Open Extensions in Google Chrome](#step-2-open-extensions-in-google-chrome)
+  - [Step 3: Turn on Developer Mode](#step-3-turn-on-developer-mode)
+  - [Step 4: Load Unpacked Extension](#step-4-load-unpacked-extension)
+- [💻 Developer Workflow \& Contributing](#-developer-workflow--contributing)
+- [⌨️ Keyboard Shortcuts \& Usage Guide](#️-keyboard-shortcuts--usage-guide)
 - [🧩 Dynamic Variables](#-dynamic-variables)
 - [📁 Project Structure](#-project-structure)
 - [🤝 Connect With Me](#-connect-with-me)
+- [](#)
 - [📜 License](#-license)
 
 ---
