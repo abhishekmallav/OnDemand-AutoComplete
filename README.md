@@ -1,5 +1,5 @@
 <h1>
-  <img src="icons/icon.svg" alt="OnDemand AutoComplete logo" width="32" align="center" margin="4px" />
+  <img src="icons/icon.svg" alt="OnDemand AutoComplete logo" width="32" style="vertical-align: middle; position: relative; top: -4px;" />
   OnDemand AutoComplete
 </h1>
 
