@@ -47,7 +47,7 @@ async function init() {
   setupInputListeners();
   setupStorageListener();
   setupMessageListener();
-  console.log("[OnDemand AutoComplete] Content script active.");
+  // console.log("[OnDemand AutoComplete] Content script active.");
 }
 
 async function loadData() {

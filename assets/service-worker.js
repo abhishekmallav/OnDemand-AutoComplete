@@ -3,10 +3,10 @@ import { Storage, EXTENSION_NAME } from "./storage.js";
 // Handle installation and updates
 chrome.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === "install") {
-    console.log(`${EXTENSION_NAME} installed successfully.`);
+    // console.log(`${EXTENSION_NAME} installed successfully.`);
     await Storage.initDefaults();
   } else if (details.reason === "update") {
-    console.log(`${EXTENSION_NAME} updated to version ${chrome.runtime.getManifest().version}`);
+    // console.log(`${EXTENSION_NAME} updated to version ${chrome.runtime.getManifest().version}`);
   }
 });
 
