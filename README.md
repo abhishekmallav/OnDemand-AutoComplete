@@ -14,7 +14,7 @@
 ![PRs Welcome](https://shieldcn.dev/badge/PRs-welcome-blue.svg?variant=outline&size=default)
 <br/>
 
-[![Chrome Web Store](https://shieldcn.dev/badge/Chrome%20Web%20Store-Available-blue?logo=googlechrome&logoColor=white&size=default)](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID)
+[![Chrome Web Store](https://shieldcn.dev/badge/Chrome%20Web%20Store-Available-blue?logo=googlechrome&logoColor=white&size=default)](https://chromewebstore.google.com/detail/ondemand-autocomplete/kkigcodokpockanmcjeooachakboedan)
 <br/>
 <sub>Click the badge above to install directly from the <b>Chrome Web Store</b>.</sub>
 
@@ -56,10 +56,10 @@
 
 The easiest way to get started is by downloading **OnDemand AutoComplete** directly from the official store:
 
-[![Get the Chrome Extension](https://developer.chrome.com/static/docs/webstore/branding/image/iNEddTyWiMfLSwFD6qGq.png)](https://chromewebstore.google.com/detail/prompt-confirm/ppbmlophbfhjlhmegeoklkdpenedahfg)
+[![Get the Chrome Extension](https://developer.chrome.com/static/docs/webstore/branding/image/iNEddTyWiMfLSwFD6qGq.png)](https://chromewebstore.google.com/detail/ondemand-autocomplete/kkigcodokpockanmcjeooachakboedan)
 
 
-1. Head over to the **[Chrome Web Store Page](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID)**.
+1. Head over to the **[Chrome Web Store Page](https://chromewebstore.google.com/detail/ondemand-autocomplete/kkigcodokpockanmcjeooachakboedan)**.
 2. Click **Add to Chrome**.
 3. Pin the extension to your toolbar and start typing snippets!
 
